@@ -13,6 +13,7 @@ import com.campuslands.incidents.entity.enums.QueryStatus;
  *                     services failed; {@code errorMessage} says why.
  * @param answer       {@code null} unless {@code status} is {@code ANSWERED}
  * @param sources      articles validated against the database; empty unless {@code ANSWERED}
+ * @param confidence   indicador heuristico calculado en el backend
  * @param errorMessage {@code null} unless {@code status} is {@code ERROR}
  */
 public record AssistanceResponse(
@@ -21,6 +22,7 @@ public record AssistanceResponse(
         QueryStatus status,
         AssistanceAnswer answer,
         List<AssistanceSource> sources,
+        ConfidenceIndicator confidence,
         String errorMessage,
         Instant createdAt) {
 

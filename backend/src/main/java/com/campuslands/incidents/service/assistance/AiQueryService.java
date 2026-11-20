@@ -16,6 +16,7 @@ import com.campuslands.incidents.config.RagProperties;
 import com.campuslands.incidents.dto.assistance.AssistanceAnswer;
 import com.campuslands.incidents.dto.assistance.AssistanceResponse;
 import com.campuslands.incidents.dto.assistance.AssistanceSource;
+import com.campuslands.incidents.dto.assistance.ConfidenceIndicator;
 import com.campuslands.incidents.dto.rag.RagRequest;
 import com.campuslands.incidents.dto.rag.RagResponse;
 import com.campuslands.incidents.entity.AiQuery;
@@ -172,9 +173,11 @@ public class AiQueryService {
         return toResponse(aiQueryRepository.save(query), null, List.of());
     }
 
-    private static AssistanceResponse toResponse(AiQuery query, AssistanceAnswer answer, List<AssistanceSource> sources) {
+    private AssistanceResponse toResponse(AiQuery query, AssistanceAnswer answer, List<AssistanceSource> sources) {
+        ConfidenceIndicator confidence = ConfidenceCalculator.calculate(
+                sources.stream().map(AssistanceSource::similarity).toList(), ragProperties.similarityThreshold());
         return new AssistanceResponse(query.getId(), query.getIncident().getId(), query.getStatus(),
-                answer, sources, query.getErrorMessage(), query.getCreatedAt());
+                answer, sources, confidence, query.getErrorMessage(), query.getCreatedAt());
     }
 
     private record ValidatedSource(KnowledgeArticle article, double similarity) {

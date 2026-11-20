@@ -37,7 +37,7 @@ class AssistanceControllerTest {
     void returnsTheAssistantAnswer() throws Exception {
         when(service.assist(7L, "No hay internet")).thenReturn(new AssistanceResponse(42L, 7L, QueryStatus.ANSWERED,
                 new AssistanceAnswer("Renovar la IP", List.of("Abrir cmd", "ipconfig /renew")),
-                List.of(new AssistanceSource(1L, "Sin acceso a internet", 0.64)), null, Instant.now()));
+                List.of(new AssistanceSource(1L, "Sin acceso a internet", 0.64)), null, null, Instant.now()));
 
         mvc.perform(post("/api/incidents/7/assistance")
                         .contentType(MediaType.APPLICATION_JSON)
