@@ -143,6 +143,7 @@ class AiQueryServiceTest {
 
         assertThat(result.status()).isEqualTo(QueryStatus.NO_RESULTS);
         assertThat(savedQuery().getStatus()).isEqualTo(QueryStatus.NO_RESULTS);
+        assertThat(result.confidence().score()).isZero();
         verify(aiResponseRepository, never()).save(any());
     }
 
