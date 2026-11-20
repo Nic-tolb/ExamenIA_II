@@ -128,6 +128,10 @@ main { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem; }
 .badge-query-pending { color: var(--primary); border-color: var(--primary); }
 .badge-query-error { color: var(--error); border-color: var(--error); }
 
+.badge-confidence-alto { color: var(--ok); border-color: var(--ok); }
+.badge-confidence-medio { color: #a84300; border-color: #a84300; }
+.badge-confidence-bajo { color: var(--error); border-color: var(--error); }
+
 /* AI assistant view (views/assistant.js) */
 .assistant-header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
 .assistant-header h3 { margin: 0; }

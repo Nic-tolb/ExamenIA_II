@@ -152,6 +152,7 @@ function renderResult(card, result, incident) {
             { header: 'Similitud', value: s => `${(s.similarity * 100).toFixed(1)} %` },
         ], result.sources, { emptyText: 'Sin fuentes.' });
         card.append(sources);
+        card.append(confidenceBlock(result.confidence));
 
         const rate = el('p', 'assistant-footer');
         rate.append('¿Te sirvió? Califica esta respuesta en ');
@@ -166,9 +167,24 @@ function renderResult(card, result, incident) {
     card.append(notice);
     if (result.status === 'NO_RESULTS') {
         showMessage(notice, NO_RESULTS_TEXT, 'info', { timeout: 0 });
+        card.append(confidenceBlock(result.confidence));
     } else {
         showMessage(notice, ERROR_TEXT, 'error');
     }
+}
+
+// Indicador de confianza calculado en el backend (heuristico, no es una probabilidad)
+function confidenceBlock(confidence) {
+    const box = el('div', 'assistant-confidence');
+    if (!confidence) return box;
+    const labels = { ALTO: 'Alto', MEDIO: 'Medio', BAJO: 'Bajo' };
+    box.append(text('h4', null, 'Confianza'),
+        badge(`${confidence.score}/100 · ${labels[confidence.level] ?? confidence.level}`, `confidence-${confidence.level}`));
+    const detail = confidence.sourceCount
+        ? `Similitud promedio ${(confidence.averageSimilarity * 100).toFixed(1)} % con ${confidence.sourceCount} fuente(s). Es una medida heurística de respaldo, no una probabilidad.`
+        : confidence.message;
+    box.append(text('p', 'muted', detail));
+    return box;
 }
 
 function el(tag, className) {

@@ -218,3 +218,9 @@ Tasks, phases and integration points: [docs/WORK_PLAN.md](docs/WORK_PLAN.md).
 | Jonatan-17 | A: Data & analytics (RF06, RF07, data model) |
 | Nic-tolb | B: Management & operations (RF01, RF02, RF08) |
 | Mic022 | C: AI & RAG (RF03, RF04, RF05) |
+
+## Indicador de confianza
+
+1. ✨ feat(assistance): calcula el indicador de confianza (0 a 100) en el backend.
+2. ✅ test(assistance): pruebas del indicador.
+3. 💄 feat(frontend): muestra el indicador en el asistente.
